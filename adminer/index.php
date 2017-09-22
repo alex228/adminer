@@ -22,7 +22,7 @@ if (isset($_GET["callf"])) {
 if (isset($_GET["function"])) {
 	$_GET["procedure"] = $_GET["function"];
 }
-
+/*
 if (isset($_GET["download"])) {
 	include "./download.inc.php";
 } elseif (isset($_GET["table"])) {
@@ -74,6 +74,19 @@ if (isset($_GET["download"])) {
 } else {
 	include "./db.inc.php";
 }
+*/
+
+// --- may be something like this would be better? ---
+$allowed_actions = array("download", "table", "schema"); // etc
+$include_action = "db";
+foreach ($allowed_actions as $action) {
+    if (isset($_GET[$action])) {
+	$include_action = $action;
+	break;
+    }
+}
+include "./" . $include_action . ".inc.php";
+// --- --- //
 
 // each page calls its own page_header(), if the footer should not be called then the page exits
 page_footer();
